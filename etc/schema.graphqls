@@ -109,6 +109,7 @@ type MageWorxGiftCards implements ProductInterface, RoutableInterface, Customiza
 }
 
 type MageWorxGiftCardAdditionalPrice {
+    uid: ID @doc(description: "UID")
     value: Float @doc(description: "Additional Price")
     label: String @doc(description: "Additional Price Label")
 }
@@ -123,11 +124,15 @@ type MageWorxGiftCardsCartItem implements CartItemInterface @doc(description: "M
     mail_to_email: String @doc(description: "To E-mail") @resolver(class: "\\MageWorx\\GiftCardsGraphQl\\Model\\Resolver\\MageWorxGiftCardsCartItem\\MailToEmail")
     mail_message: String @doc(description: "Message") @resolver(class: "\\MageWorx\\GiftCardsGraphQl\\Model\\Resolver\\MageWorxGiftCardsCartItem\\MailMessage")
     mail_delivery_date: String @doc(description: "Delivery Date") @resolver(class: "\\MageWorx\\GiftCardsGraphQl\\Model\\Resolver\\MageWorxGiftCardsCartItem\\MailDeliveryDate")
-    customizable_options: [SelectedCustomizableOption] @resolver(class: "Magento\\QuoteGraphQl\\Model\\Resolver\\CustomizableOptions")
+    customizable_options: [SelectedCustomizableOption]! @resolver(class: "Magento\\QuoteGraphQl\\Model\\Resolver\\CustomizableOptions")
 }
 
 enum MageWorxGiftCardTypeEnum @doc(description: "This enumeration defines the types of gift cards") {
     EMAIL
     PRINT
     OFFLINE
+}
+
+extend enum CatalogAttributeApplyToEnum {
+    MAGEWORX_GIFTCARDS @enum(value: "mageworx_giftcards")
 }
