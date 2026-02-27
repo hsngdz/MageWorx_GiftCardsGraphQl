@@ -15,8 +15,6 @@ use Magento\Framework\GraphQl\Query\Resolver\Value;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
-use Magento\Framework\App\ObjectManager;
-use Magento\Framework\GraphQl\Query\Uid;
 
 /**
  * Resolver that exposes fixed gift-card amounts (`mageworx_gc_additional_price`)
@@ -34,18 +32,12 @@ class AdditionalPrices implements ResolverInterface
      */
     private PriceCurrencyInterface $priceCurrency;
 
-    /** @var Uid */
-    private $uidEncoder;
-
     /**
      * @param PriceCurrencyInterface $priceCurrency
-     * @param Uid|null $uidEncoder
      */
-    public function __construct(PriceCurrencyInterface $priceCurrency, ?Uid $uidEncoder = null)
+    public function __construct(PriceCurrencyInterface $priceCurrency)
     {
         $this->priceCurrency = $priceCurrency;
-        $this->uidEncoder = $uidEncoder ?: ObjectManager::getInstance()
-            ->get(Uid::class);
     }
 
     /**
